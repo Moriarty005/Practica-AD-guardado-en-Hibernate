@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-ene-2020 12:37:15 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="proyecto_ad_hibernate.Plato" table="plato" catalog="bd_restaurantes" optimistic-lock="version">
+        <id name="idplato" type="java.lang.Integer">
+            <column name="idplato" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="restaurante" class="proyecto_ad_hibernate.Restaurante" fetch="select">
+            <column name="id_restaurante_de_plato" not-null="true" />
+        </many-to-one>
+        <property name="nombrePlato" type="string">
+            <column name="nombre_plato" length="45" not-null="true" />
+        </property>
+        <property name="saborPrincipal" type="string">
+            <column name="sabor_principal" length="45" not-null="true" />
+        </property>
+        <property name="tiempoDePrepEnMins" type="int">
+            <column name="tiempo_de_prep_en_mins" not-null="true" />
+        </property>
+        <property name="numIngredientes" type="int">
+            <column name="num_ingredientes" not-null="true" />
+        </property>
+        <set name="cocineros" table="cocinero" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_del_cocinero_que_cocina_este_plato" not-null="true" />
+            </key>
+            <one-to-many class="proyecto_ad_hibernate.Cocinero" />
+        </set>
+    </class>
+</hibernate-mapping>

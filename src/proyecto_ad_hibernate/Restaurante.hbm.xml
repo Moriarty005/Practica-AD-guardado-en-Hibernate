@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-ene-2020 12:37:15 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="proyecto_ad_hibernate.Restaurante" table="restaurante" catalog="bd_restaurantes" optimistic-lock="version">
+        <id name="idrestaurante" type="java.lang.Integer">
+            <column name="idrestaurante" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="proyecto_ad_hibernate.Cliente" fetch="select">
+            <column name="id_cliente_que_al_que_restaurante_vende" not-null="true" />
+        </many-to-one>
+        <property name="nombreRestaurante" type="string">
+            <column name="nombre_restaurante" length="45" not-null="true" />
+        </property>
+        <property name="direccionRestaurante" type="string">
+            <column name="direccion_restaurante" length="45" not-null="true" />
+        </property>
+        <property name="aforoMaximoRestaurante" type="string">
+            <column name="aforo_maximo_restaurante" length="45" not-null="true" />
+        </property>
+        <property name="numeroEmpleadosRestaurante" type="int">
+            <column name="numero_empleados_restaurante" not-null="true" />
+        </property>
+        <set name="platos" table="plato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_restaurante_de_plato" not-null="true" />
+            </key>
+            <one-to-many class="proyecto_ad_hibernate.Plato" />
+        </set>
+    </class>
+</hibernate-mapping>
